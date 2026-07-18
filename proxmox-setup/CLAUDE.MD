@@ -12,4 +12,5 @@
 - WiFi SSID/password: I will provide when asked — do not guess
 - Repos: pve-no-subscription active; enterprise + ceph sources disabled (.disabled). apt update verified clean 2026-07-17, dist-upgraded same day
 - HandleLidSwitch=ignore set via /etc/systemd/logind.conf.d/lid.conf (verified active)
+- sleep/suspend/hibernate/hybrid-sleep.target all masked — laptop must never sleep; wireless-tools installed
 - Check current Proxmox 9 docs when unsure; don't assume from older versions
