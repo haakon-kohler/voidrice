@@ -16,5 +16,11 @@
 - sleep/suspend/hibernate/hybrid-sleep.target all masked — laptop must never sleep; wireless-tools installed
 - VM 100 "swarm1": Debian 13 cloud-init VM at <ip>.60 (static, 4 cores/3GB/24GB, onboot=1), user debian, SSH keys from laptop + pve root. Docker swarm manager (single node so far — future nodes join here)
 - beszel monitoring: hub runs as swarm service "beszel-hub" pinned to swarm1 (data bind-mounted at /var/lib/beszel on the VM), web UI http://<ip>.60:8090, admin = my email, password: ask me. beszel-agent (port 45876) installed on both pve host and swarm1; both systems report "up"
-- TODO (flag on next session): enable Battery Limit (50% cap) in Surface UEFI — hardware is a Surface Pro 6, no software/sysfs charge capping possible; needs physical access (shutdown → hold Vol-Up + Power → Boot configuration/Advanced → Battery Limit On). If option missing, firmware too old — try fwupd/LVFS
+- TODOs (flag on next session):
+  - Battery Limit (50% cap) in Surface UEFI — hardware is a Surface Pro 6, no software/sysfs charge capping possible; needs physical access (shutdown → hold Vol-Up + Power → Boot configuration/Advanced → Battery Limit On). If option missing, firmware too old — try fwupd/LVFS
+  - swarm1 VM has no unattended-upgrades yet (host does; VM security patches are manual)
+  - beszel has no alerting configured — needs SMTP settings + alert rules in its UI to email on down/thresholds
+  - no external uptime vantage point — beszel can't see whole-site outages (power/ISP); add a healthchecks.io-style dead-man's-switch cron ping from the host
+  - guest networking rides the wired link only (WiFi backup covers host SSH, not VMs) — if guests must survive an unplug, revisit NAT/masquerade design
+  - swarm is single-node; future laptops join via a VM + `docker swarm join` against <ip>.60
 - Check current Proxmox 9 docs when unsure; don't assume from older versions
